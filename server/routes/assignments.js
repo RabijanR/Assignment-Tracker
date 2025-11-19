@@ -1,83 +1,94 @@
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
-let  Assignment = require('../models/assignments');
+let Assignment = require('../models/assignments');
 
-//Get route for the Read assignment list - Read Operation
-router.get('/assignments',async(requestAnimationFrame,resizeBy,next)=>{
-    try
-    {
-        const AssignmentList = await Assignment.find();
-        //console.log(AssignmentList);
-        res.render('Assignments/list',{
-            title:'Assignments',
-            AssignmentList:AssignmentList
-        })
-    }
-    catch(err)
-    {
-        console.error(err);
-        res.render('Assignments/list',{
-            error: 'Error on server'
-        })
-    }
-})
-
-//Get route for displaying the Add page - Create Operation
-router.get('/add' ,async(request,res,next)=>{
-    try{
-        res.render('Assignments/add',{
-            title: 'Add a Assignment'
-        })
-    }
-    catch(err)
-    {
-        console.error(err);
-        res.render('Assignments/add',{
-            error:'Error on server'
-        })
-    }
-})
-//Post route for processing the Add page - Create Operation
-router.get('/add' ,async(request,res,next)=>{
-    try
-    {
-        let newAssignment = Assignment({
-            "Title":request.body.title,
-            "Course":request.body.Course,
-            "DueDate":request.body.DueDate,
-            "Status":request.body.Status,
-            "Description":request.body.Description,
+// READ – List Assignments
+router.get('/', async (req, res, next) => {
+    try {
+        let assignmentList = await Assignment.find();
+        res.render('Assignments/list', {
+            title: 'Assignments',
+            AssignmentList: assignmentList
         });
-        Assignment.Create(newAssignment).then(()=>{
-            res.redirect('/assignments')
-        })
-    }
-     catch(err)
-    {
+    } catch (err) {
         console.error(err);
-        res.render('Assignments/add',{
-            error:'Error on server'
-        })
+        res.render('Assignments/list', { error: 'Server Error' });
     }
-})
-//Post route for processing the Add page - Create Operation
-router.get('/add' ,async(request,res,next)=>{
-    try
-    {
-        
+});
+
+// DISPLAY ADD PAGE – CREATE
+router.get('/add', (req, res, next) => {
+    res.render('Assignments/add', { title: 'Add Assignment' });
+});
+
+// PROCESS ADD PAGE – CREATE
+router.post('/add', async (req, res, next) => {
+    try {
+        let newAssignment = new Assignment({
+            title: req.body.title,
+            course: req.body.course,
+            dueDate: req.body.dueDate,
+            status: req.body.status,
+            description: req.body.description
+        });
+
+        await newAssignment.save();
+        res.redirect('/assignments');
+    } catch (err) {
+        console.error(err);
+        res.render('Assignments/add', { error: 'Server Error' });
     }
-})
-//Get route for displaying the Edit page - Update Operation
-router.get('/edit/:id' ,async(request,res,next)=>{
+});
 
-})
-//Post route for processing the Edit page - Update Operation
-router.post('/edit/:id' ,async(request,res,next)=>{
+// DISPLAY EDIT PAGE – UPDATE
+router.get('/edit/:id', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+        let assignment = await Assignment.findById(id);
 
-})
-//Get route for performing Delete Operation - Delete Operation
-router.get('/delete/:id' ,async(request,res,next)=>{
+        res.render('Assignments/edit', {
+            title: 'Edit Assignment',
+            assignment: assignment
+        });
 
-})
+    } catch (err) {
+        console.error(err);
+        res.redirect('/assignments');
+    }
+});
+
+// PROCESS EDIT PAGE – UPDATE
+router.post('/edit/:id', async (req, res, next) => {
+    try {
+        let id = req.params.id;
+
+        let updatedAssignment = {
+            title: req.body.title,
+            course: req.body.course,
+            dueDate: req.body.dueDate,
+            status: req.body.status,
+            description: req.body.description
+        };
+
+        await Assignment.findByIdAndUpdate(id, updatedAssignment);
+        res.redirect('/assignments');
+
+    } catch (err) {
+        console.error(err);
+        res.redirect('/assignments');
+    }
+});
+
+// DELETE – DELETE + CONFIRM POPUP
+router.get('/delete/:id', async (req, res, next) => {
+    try {
+        await Assignment.findByIdAndDelete(req.params.id);
+        res.redirect('/assignments');
+    } catch (err) {
+        console.error(err);
+        res.redirect('/assignments');
+    }
+});
+
 module.exports = router;

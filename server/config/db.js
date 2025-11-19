@@ -1,1 +1,5 @@
-module.exports={"URI":"mongodb+srv://RabijansTutorialActivity2a:uv43ggg4@cluster0.nuvtowy.mongodb.net/Assignment-Tracker"}
+require('dotenv').config();
+
+module.exports = {
+    URI: process.env.MONGO_URI
+};

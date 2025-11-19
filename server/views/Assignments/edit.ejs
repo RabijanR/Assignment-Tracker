@@ -1,0 +1,42 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+
+<div class="container">
+    <h1><%= title %></h1>
+
+    <form method="post">
+        <div class="form-group">
+            <label>Assignment Title</label>
+            <input class="form-control" name="title" value="<%= assignment.title %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Course</label>
+            <input class="form-control" name="course" value="<%= assignment.course %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" class="form-control" 
+                   name="dueDate"
+                   value="<%= assignment.dueDate.toISOString().split('T')[0] %>"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <input class="form-control" name="status" value="<%= assignment.status %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" name="description" required><%= assignment.description %></textarea>
+        </div>
+        <br>
+
+        <button class="btn btn-primary" type="submit">Save Changes</button>
+        <a href="/assignments" class="btn btn-warning">Cancel</a>
+    </form>
+</div>
+
+<%- include ../partials/footer.ejs %>
