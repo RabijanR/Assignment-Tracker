@@ -1,5 +1,30 @@
-<%- include ./partials/header.ejs %>
-<%- include ./partials/main_nav.ejs %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-<%- include ./partials/footer.ejs %>
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/main_nav.ejs') %>
+
+<main class="container mt-5">
+
+    <div class="text-center text-light p-5 rounded" 
+         style="background: #212529; box-shadow: 0 0 10px rgba(0,0,0,0.5);">
+        
+        <h1 class="mb-3">
+            <i class="fa-solid fa-book"></i> Assignment Tracker
+        </h1>
+
+        <p class="lead">
+            Keep track of your assignments, deadlines, and progress — all in one place.
+        </p>
+
+        <div class="mt-4">
+            <a href="/assignments" class="btn btn-primary btn-lg m-1">
+                <i class="fa-solid fa-book"></i> View Assignments
+            </a>
+
+            <a href="/assignments/add" class="btn btn-success btn-lg m-1">
+                <i class="fa-solid fa-file-circle-plus"></i> Add Assignment
+            </a>
+        </div>
+    </div>
+
+</main>
+
+<%- include('./partials/footer.ejs') %>
