@@ -1,0 +1,56 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+<!--Content for adding the assignment-->
+<div class="container">
+    <div class="row">
+        <div class="offset-md-3 col-md-6">
+            <h1><%= title %></h1>
+
+            <form class="form" method="post">
+                <div class="form-group">
+                    <label for="TitleTextField">Assignment Title</label>
+                    <input type="text" class="form-control"
+                    id="Title"
+                    placeholder="Enter the assignment title"
+                    name="Title" required>
+                </div>
+                <div class="form-group">
+                    <label for="CourseTextField">Course</label>
+                    <input type="text" class="form-control"
+                    id="CourseTextField"
+                    placeholder="Enter the Course"
+                    name="Course" required>
+                </div>
+                <div class="form-group">
+                    <label for="DueDateTextField">DueDate</label>
+                    <input type="text" class="form-control"
+                    id="DueDateTextField"
+                    placeholder="Enter the DueDate"
+                    name="DueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="StatusTextField">Status</label>
+                    <input type="text" class="form-control"
+                    id="StatusTextField"
+                    placeholder="Enter the Status"
+                    name="Status" required>
+                </div>
+                <div class="form-group">
+                    <label for="DescriptionTextField">Description</label>
+                    <textarea type="text" class="form-control"
+                    id="DescriptionTextArea"
+                    placeholder="Enter brief Description of the Assignment"
+                    name="Description" required>
+                </div>
+                <br>
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-edit"></i> submit
+                </button>
+                <a href="/assignments" class="btn-warning">
+                    <i class="fas fa-undo"></i> cancel
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+<%- include ../partials/footer.ejs %>

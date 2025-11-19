@@ -1,0 +1,31 @@
+<%- include ../partials/header.ejs %>
+<%- include ../partials/main_nav.ejs %>
+<!--Main content for displaying my database-->
+<main class="container">
+    <div class="row">
+        <div class="offset-md-1 col-md-10">
+            <h1><%= title %></h1>
+            <br>
+            <table class="table table-bordered table-stripped table-hover">
+                <!--Header Row-->
+                <tr class="d-flex">
+                    <th class="text-center col-2">Title</th>
+                    <th class="text-center col-2">Course</th>
+                    <th class="text-center col-2">DueDate</th>
+                    <th class="text-center col-2">Status</th>
+                    <th class="text-center col-4">Description</th>
+                </tr>
+                <% for(let count=0; count<AssignmentList.length;count++) {%>
+                <tr class="d-flex">
+                    <td class="text-center col-2"><%= AssignmentList[count].Title %></td>
+                    <td class="text-center col-2"><%= AssignmentList[count].Course %></td>
+                    <td class="text-center col-2"><%= AssignmentList[count].DueDate %></td>
+                    <td class="text-center col-2"><%= AssignmentList[count].Status %></td>
+                    <td class="text-center col-4"><%= AssignmentList[count].Description %></td>
+                </tr>
+            <% } %>
+            </table>
+        </div>
+    </div>
+</main>
+<%- include ../partials/footer.ejs %>
